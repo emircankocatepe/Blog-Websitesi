@@ -1,5 +1,7 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404
+from django.shortcuts import render, HttpResponse, get_object_or_404, HttpResponseRedirect, redirect
 from .models import Post
+
+from .forms import PostForm
 # Create your views here.
 
 def post_index(request):
@@ -16,10 +18,56 @@ def post_detail(request, id):
     return render(request, 'post/detail.html', context)
 
 def post_create(request):
-    return HttpResponse('Burasi post create sayfasi')
+                
+    ## form = PostForm(request)
+    ##context = {
+    ##    'form' : form,
+    ## }
 
-def post_update(request):
-    return HttpResponse('Burasi post update sayfasi')
+    ##if request.method == 'POST':
+    ##    baslik = request.POST.get('baslik')
+    ##    metin = request.POST.get('metin')
+    ##    Post.objects.create(baslik = baslik, metin = metin)
 
-def post_delete(request):
-    return HttpResponse('Burasi post delete sayfasi')
+    
+    # if request.method == 'POST':
+    #     form = PostForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+
+    # else: 
+    #     form = PostForm()
+
+    form = PostForm(request.POST or None)
+
+    if form.is_valid():
+        post = form.save()
+        return HttpResponseRedirect(post.get_absolute_url())
+
+    context = {
+        'form' : form,
+    }
+    
+    return render(request, 'post/form.html', context)
+
+def post_update(request, id):
+
+    post = get_object_or_404(Post, id=id) # neden post'u asagida yukarida create metodunda yaptigimiz gibi form.save'a atamadik? guncellenmis yeni bir objects olmadi mi sonucta?
+
+    form = PostForm(request.POST or None, instance=post)
+
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(post.get_absolute_url())
+    context = {
+            'form' : form,
+        }
+    
+    return render(request, 'post/form.html', context)
+
+def post_delete(request , id):
+
+    post = get_object_or_404(Post, id=id)
+    post.delete()
+
+    return redirect('post:home')
