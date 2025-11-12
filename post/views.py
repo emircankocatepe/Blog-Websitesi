@@ -1,5 +1,7 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, HttpResponseRedirect, redirect
 from .models import Post
+from django.contrib import messages
+
 
 from .forms import PostForm
 # Create your views here.
@@ -42,6 +44,7 @@ def post_create(request):
 
     if form.is_valid():
         post = form.save()
+        messages.success(request, "It's posted successfully!", extra_tags='message-success')
         return HttpResponseRedirect(post.get_absolute_url())
 
     context = {
