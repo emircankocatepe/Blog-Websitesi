@@ -3,6 +3,7 @@ from .models import Post
 from django.contrib import messages
 
 
+
 from .forms import PostForm
 # Create your views here.
 
@@ -73,4 +74,4 @@ def post_delete(request , id):
     post = get_object_or_404(Post, id=id)
     post.delete()
 
-    return redirect('post:home')
+    return redirect('home')

@@ -3,19 +3,28 @@
 
 {% block body %}
 
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+        <div class="container">
+
+        <div class="row" >
+            <!-- <img src="..." class="card-img-top" alt="..."> -->
+            <div class="col-md-6 col-md-offset-3" >
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h3>{{post.baslik}}<small>{{post.yayimlanma_tarihi}}</small></h3>
+                        <p>{{post.metin | linebreaks}}</p>
+                        <p><a href="{{ post.get_absolute_url }}" class="btn btn-primary">Review</a></p>
+                        <p><a href="{{ post.get_update_url }}" class="btn btn-default">Update</a></p>
+                        <p><a href="{{ post.get_delete_url }}" class="btn btn-danger">Delete</a></p>
+                    </div>
+                </div>
+
+            </div>
+            
+            </div>
 
 
-        {{post.id}} <br>
-        {{post.baslik}} <br>
-        {{post.metin}} <br>
-        {{post.yayimlanma_tarihi}} <br>
+        
+        </div>
 
 
 {% endblock %}
