@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404, HttpResponseRedirect, redirect
+from django.shortcuts import render, HttpResponse, get_object_or_404, HttpResponseRedirect, redirect, Http404
 from .models import Post
 from django.contrib import messages
 
@@ -21,6 +21,10 @@ def post_detail(request, id):
     return render(request, 'post/detail.html', context)
 
 def post_create(request):
+
+
+    if not request.user.is_authenticated:
+        return Http404()
                 
     ## form = PostForm(request)
     ##context = {
@@ -41,7 +45,7 @@ def post_create(request):
     # else: 
     #     form = PostForm()
 
-    form = PostForm(request.POST or None)
+    form = PostForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
         post = form.save()
@@ -56,12 +60,16 @@ def post_create(request):
 
 def post_update(request, id):
 
+    if not request.user.is_authenticated:
+        return Http404()
+
     post = get_object_or_404(Post, id=id) # neden post'u asagida yukarida create metodunda yaptigimiz gibi form.save'a atamadik? guncellenmis yeni bir objects olmadi mi sonucta?
 
-    form = PostForm(request.POST or None, instance=post)
+    form = PostForm(request.POST or None, request.FILES or None, instance=post)
 
     if form.is_valid():
         form.save()
+        messages.success(request, "It's updated successfully!", extra_tags='message-success')
         return HttpResponseRedirect(post.get_absolute_url())
     context = {
             'form' : form,
@@ -70,6 +78,9 @@ def post_update(request, id):
     return render(request, 'post/form.html', context)
 
 def post_delete(request , id):
+
+    if not request.user.is_authenticated:
+        return Http404()
 
     post = get_object_or_404(Post, id=id)
     post.delete()

@@ -9,7 +9,7 @@ class Post(models.Model):
     baslik = models.CharField(max_length=120, verbose_name='Title')
     metin = models.TextField(verbose_name='Content')
     yayimlanma_tarihi = models.DateTimeField(verbose_name='Published Date', auto_now_add=True)
-
+    image = models.ImageField(null=True, blank=True)
     def __str__(self):
         return self.baslik
     
@@ -33,3 +33,6 @@ class Post(models.Model):
     def get_delete_url(self):
 
         return reverse('post:delete', kwargs={"id" : self.id})
+    
+    class Meta:
+        ordering = ['-yayimlanma_tarihi', 'id']
