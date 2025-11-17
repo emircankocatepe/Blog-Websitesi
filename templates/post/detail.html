@@ -13,8 +13,9 @@
                         {% if post.image %}
                         <img src=" {{ post.image.url }} " class="img-responsive">
                         {% endif %}
-                        <h3>{{post.baslik}}<small>{{post.yayimlanma_tarihi}}</small></h3>
-                        <p>{{post.metin | linebreaks}}</p>
+                        <h3>{{post.baslik}} <small>{{post.yayimlanma_tarihi}}</small></h3>
+                        <small> by {{post.user.get_full_name}}</small>
+                        <p>{{post.metin | safe | linebreaks}}</p>
                         <p><a href="{{ post.get_absolute_url }}" class="btn btn-primary">Review</a></p>
                         {% if request.user.is_authenticated%}
                         <p><a href="{{ post.get_update_url }}" class="btn btn-default">Update</a></p>

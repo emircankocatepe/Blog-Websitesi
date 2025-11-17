@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'post',
     'crispy_bootstrap5',
     'django_cleanup',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -125,7 +126,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 
 
 # Default primary key field type
@@ -138,3 +139,5 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CKEDITOR_JQUERY_URL = os.path.join(STATIC_URL, 'js/jquery.min.js')

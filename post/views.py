@@ -48,7 +48,9 @@ def post_create(request):
     form = PostForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
-        post = form.save()
+        post = form.save(commit=False)
+        post.user = request.user
+        post.save()
         #post.slug = slugify(post.baslik.replace('ı','i'))
         #post.save()
         messages.success(request, "It's posted successfully!", extra_tags='message-success')
