@@ -55,3 +55,12 @@ class Post(models.Model):
     
     class Meta:
         ordering = ['-yayimlanma_tarihi', 'id']
+
+class Comment(models.Model):
+
+    post = models.ForeignKey('post.Post', related_name='comments', on_delete=models.CASCADE)
+
+    name = models.CharField(max_length=200, verbose_name='Isim')
+    content = models.TextField(verbose_name='Yorum')
+
+    created_date = models.DateTimeField(auto_now_add=True)
