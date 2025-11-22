@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'django_cleanup',
     'ckeditor',
+    'django_recaptcha',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +142,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CKEDITOR_JQUERY_URL = os.path.join(STATIC_URL, 'js/jquery.min.js')
+
+RECAPTCHA_PUBLIC_KEY = '6LchLBUsAAAAAFe8MWRQRt4I_etQUoqujD0UPGBY'
+RECAPTCHA_PRIVATE_KEY = '6LchLBUsAAAAAGVmJtWBmtBwpGjC7_Dgdaetape9'
+NOCAPTCHA = True

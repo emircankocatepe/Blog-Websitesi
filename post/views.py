@@ -2,13 +2,19 @@ from django.shortcuts import render, HttpResponse, get_object_or_404, HttpRespon
 from .models import Post
 from django.contrib import messages
 from django.utils.text import slugify
-
-
+from django.core.paginator import Paginator
 from .forms import PostForm, CommentForm
 # Create your views here.
 
 def post_index(request):
-    posts = Post.objects.all()
+    post_list = Post.objects.all()
+
+    
+    paginator = Paginator(post_list, 4)  # Show 25 contacts per page.
+
+    page = request.GET.get("page")
+    posts = paginator.get_page(page)
+
     return render(request, 'post/index.html', {'posts' : posts})
 
 def post_detail(request, slug):
