@@ -7,10 +7,10 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                  <form method="post" enctype="multipart/form-data">
-                    <h1>Form</h1>
                     {% csrf_token %}
+                    <h1>{{title}}</h1>
                     {{ form | crispy}}
-                    <input class="btn btn-primary"type="submit" value="Log in" style="margin-top: 14px;">
+                    <input class="btn btn-primary"type="submit" value="{{title}}" style="margin-top: 14px;">
 
                 </form>
             </div>
