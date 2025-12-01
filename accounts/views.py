@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, ContactForm
 
 # Create your views here.
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 def login_view(request):
     form = LoginForm(request.POST or None)
@@ -29,3 +29,15 @@ def register_view(request):
         login(request, new_user)
         return redirect('home')
     return render(request, 'accounts/form.html', {'form' : form, 'title': 'Uye Ol'})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
+
+def about_view(request):
+    return render(request, 'about/about.html')
+
+def contact_view(request):
+    form = ContactForm(request.POST or None)
+    return render(request, 'about/contact.html', {'form': form, 'title' : 'Write to us'})

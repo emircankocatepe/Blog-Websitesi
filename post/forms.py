@@ -19,5 +19,5 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = [
             'name', 
-            'content'
+            'content',
         ]

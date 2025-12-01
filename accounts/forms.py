@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-
+from .models import Contact
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=100, label='Kullanici Adi')
     password = forms.CharField(max_length=100, label='Parola', widget=forms.PasswordInput)
@@ -36,3 +36,13 @@ class RegisterForm(forms.ModelForm):
         if password1 and password2 and password1!=password2:
             raise forms.ValidationError('Parolalar eslesmiyor')
         return password2
+    
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = [
+            'name',
+            'last_name',
+            'email',
+            'content',
+        ]
