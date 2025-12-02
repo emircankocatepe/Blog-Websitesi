@@ -40,4 +40,10 @@ def about_view(request):
 
 def contact_view(request):
     form = ContactForm(request.POST or None)
+    if form.is_valid():
+        post = form.save(commit=False)
+        post.user = request.user
+        post.save()
+        return render(request, 'about/success.html')
     return render(request, 'about/contact.html', {'form': form, 'title' : 'Write to us'})
+

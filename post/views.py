@@ -47,7 +47,6 @@ def post_detail(request, slug):
 
 def post_create(request):
 
-
     if not request.user.is_authenticated:
         return Http404()
                 
