@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from accounts.views import success_view
 from home.views import home_view
 from django.conf.urls.static import static
 from django.conf import settings
@@ -32,6 +33,8 @@ urlpatterns = [
     path('website/', include('accounts.urls')),
 
     path('website/', include('accounts.about_url')),
+
+    path('success/', success_view, name='success'),
 
 ]
 

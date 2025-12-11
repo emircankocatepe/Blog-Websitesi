@@ -44,6 +44,8 @@ def contact_view(request):
         post = form.save(commit=False)
         post.user = request.user
         post.save()
-        return render(request, 'about/success.html')
+        return redirect('success')
     return render(request, 'about/contact.html', {'form': form, 'title' : 'Write to us'})
 
+def success_view(request):
+    return render(request, 'about/success.html')

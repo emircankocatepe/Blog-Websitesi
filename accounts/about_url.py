@@ -9,5 +9,7 @@ urlpatterns = [
     path('about/', about_view, name='about'),
 
     path('contact_us/', contact_view, name='contact'),
+
+
     
 ]
